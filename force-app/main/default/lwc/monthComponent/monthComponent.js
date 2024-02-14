@@ -16,6 +16,7 @@ export default class MonthComponent extends LightningElement {
         this._months = value;
         this.calcRollup();
         console.log('setter');
+        // test changes
         
     }
 
