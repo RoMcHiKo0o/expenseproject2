@@ -1,0 +1,28 @@
+<template>
+    <lightning-card>
+        <div>
+            <div class="header" slot="title">
+                <h1>{office}</h1>
+                <h1>balance</h1>
+            </div>
+        </div>
+        <div slot="actions">
+            <div>
+                <lightning-button-group class=".slds-button-group">
+                    <lightning-button variant="neutral" label="Income" onclick={handleClick}></lightning-button>
+                    <lightning-button variant="neutral" label="New Expense" onclick={handleClick}></lightning-button>
+                </lightning-button-group>
+            </div>
+        </div>
+        <div>
+            <div class="wrapper">
+                <div class="leftColumn">
+                    <c-month-component months={monthData}></c-month-component>
+                    <c-year-component></c-year-component>
+                </div>
+                <div class="expenseComponent"></div>
+
+            </div>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,30 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <lightning-layout horizontal-align="center">
+    <lightning-card style="background-color: #4990D9;">
+       <div class="container">
+            <div class="inner">
+                <div class="logo-container">
+                    <img alt="Expenses logo" src={logo} class="logo"/>
+                </div>
+                <div class="slds-form-element login-container">
+                    <label class="slds-form-element__label login-label" for="text-input-id-1">Login</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="text-input-id-1" placeholder="Enter your username" required class="slds-input" onchange={loginChangeHandle}/>
+                    </div>
+                </div>
+                <div class="slds-form-element password-container">
+                    <label class="slds-form-element__label password-label" for="text-input-id-2">Password</label>
+                    <div class="slds-form-element__control">
+                        <input type="text" id="text-input-id-2" placeholder="Password" required class="slds-input" onchange={passwordChangeHandle}/>
+                    </div>
+                </div>
+                <div class="slds-text-color_error error-message">
+                    {error}
+                </div>
+                <button class="slds-button slds-button_brand login-button" onclick={loginHandle}>Login</button>
+            </div>
+        </div>
+    </lightning-card>
+</lightning-layout>
+</template>

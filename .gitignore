@@ -1,0 +1,5 @@
+.sfdx/
+.husky/
+.sf/
+.vscode/
+config/

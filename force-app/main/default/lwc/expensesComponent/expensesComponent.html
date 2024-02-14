@@ -1,0 +1,5 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <c-logined-exponse-component lwc:if={isLogined} employee={employee}></c-logined-exponse-component>
+    <c-login-component onlogin={changeLoginStatus} lwc:else></c-login-component>
+</template>

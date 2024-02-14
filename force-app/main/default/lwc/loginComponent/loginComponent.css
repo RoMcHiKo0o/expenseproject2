@@ -1,0 +1,56 @@
+.host {
+    --slds-c-card-background-color: #4990D9;
+}
+
+.container {
+    width: 500px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 10px;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+.inner {
+    width: 300px;
+}
+
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    margin: auto;
+    margin-bottom: -1rem;
+}
+
+.password-container {
+    margin-top: 10px;
+}
+
+.login-label, .password-label {
+    margin-left: 0.1rem;
+    font-weight: bold;
+}
+
+
+input::placeholder {
+    font-size: 0.7rem;
+}
+
+.input::placeholder {
+    font-size: 0.7rem;
+}
+
+.login-button {
+    margin-top: 10px;
+    width: 100%;
+    font-weight: 700;
+}
+
+.error-message {
+    margin-left: 5px;
+    height: 20px;
+}
