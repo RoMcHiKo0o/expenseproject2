@@ -27,31 +27,30 @@ export default class NotAdminExpenseComponent extends LightningElement {
     monthData=[];
 
     connectedCallback() {
+        this.init();
+    }
+
+    async init() {
         if (!this.name) {
             console.log("no name:" + this.name);
         }
         else {
-            this.fetchMonthExpenseData();
+            let data = await this.fetchMonthExpenseData();
+            this.monthData = this.prepareMonthData(data);
         }
     }
 
-    fetchMonthExpenseData() {
-        console.log('fetching...');
-        getMonthlyExpensesByEmail({email: this.name}).then(data => {
-            console.log(data);
-            this.monthData = this.prepareMonthData(data);
-            console.log(this.monthData);
-            
-        }).catch(err => {
-            console.log(err);
-        })
+    async fetchMonthExpenseData() {
+        try {
+            return await getMonthlyExpensesByEmail({email: this.name});
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     prepareMonthData(data) {
         let tempData = {};
-        
         data.map(el => {tempData[el.month]=el});
-        console.log(tempData);
         return monthDataTemplate.map((el, index) => {
             return {...el, ...tempData[index]};
         });
