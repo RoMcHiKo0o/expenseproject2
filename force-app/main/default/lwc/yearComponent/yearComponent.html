@@ -1,9 +1,10 @@
+<!-- sldsValidatorIgnore -->
 <template>
     <lightning-card>
         <div class="wrapper">
             <div class="inner">
-                <template for:each={buttons} for:item="btn" for:index="index">
-                    <button key={btn} class="slds-button slds-button_neutral button-element" data-id={index} onclick={handleButtonClick}>{btn}</button>
+                <template for:each={buttonLabels} for:item="btn" for:index="index">
+                    <button key={btn} class="slds-button slds-m-around_none slds-button_neutral button-element" data-id={index} onblur={handleBlur} onclick={handleButtonClick}>{btn}</button>
                 </template>
             </div>
         </div>

@@ -25,11 +25,12 @@
                     <td data-label="Amount">
                         <div class="" title="Amount">
                             <lightning-badge class="badge" label={month.amount}></lightning-badge>
+
                         </div>
                     </td>
                     <td data-label="Income">
                         <div title="Income">
-                            <lightning-badge class="badge" label={month.income}></lightning-badge>
+                            <lightning-badge lwc:if={month.income}  class="badge" label={month.income}></lightning-badge>
                         </div>
                     </td>
                 </tr>

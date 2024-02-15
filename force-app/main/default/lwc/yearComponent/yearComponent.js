@@ -1,15 +1,51 @@
-import { LightningElement } from 'lwc';
+import { LightningElement,api } from 'lwc';
 
 export default class YearComponent extends LightningElement {
 
-    buttons = [2021,2022,2023,2024];
+    @api buttonLabels;
+
+    @api selected;
+
+    @api email;
+
+    rendered = false;
+
+    renderedCallback() {
+        // if (this.counter--) {
+        //     this.selectStartvalue();
+        // }        
+        console.log(this.buttonLabels);
+        if (!this.rendered && Array.isArray(this.buttonLabels)) {
+
+            // this.selectStartvalue();
+            this.rendered = true;
+        }
+    }
+
+    selectStartvalue() {
+        this.selected = this.buttonLabels.length-1;
+        console.log(this.selected);
+        console.log(this.template.querySelectorAll('.button-element')[this.selected]);
+        this.selectButton(this.template.querySelectorAll('.button-element')[this.selected]);
+    }
+    
+
+    selectButton(b) {
+        b.classList.add('slds-button_brand');
+    }
+
+    deselectButton(b) {
+        b.classList.remove('slds-button_brand');
+    }
 
     handleButtonClick(event) {
-        let index = console.log(event.target.dataset.id);
-        let value = this.buttons.index;
-
-        this.template.querySelectorAll('.button-element').forEach(el => el.classList.remove('slds-button_brand'));
-        event.target.classList.add('slds-button_brand');
+        this.selected = console.log(event.target.dataset.id);
+        let value = this.buttonLabels[this.selected];
+        this.selectButton(event.target);
         
+    }
+
+    handleBlur(event) {
+        this.deselectButton(event.target);
     }
 }

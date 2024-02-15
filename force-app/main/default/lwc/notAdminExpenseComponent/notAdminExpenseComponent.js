@@ -26,18 +26,27 @@ export default class NotAdminExpenseComponent extends LightningElement {
 
     monthData=[];
 
+    yearData=[];
+
     connectedCallback() {
         this.init();
     }
 
     async init() {
-        if (!this.name) {
-            console.log("no name:" + this.name);
+        try {
+            if (!this.name) {
+                console.log("no name:" + this.name);
+            }
+            else {
+                let data = await this.fetchMonthExpenseData();
+                this.monthData = this.prepareMonthData(data);
+                this.yearData = this.getYearData();
+            }
         }
-        else {
-            let data = await this.fetchMonthExpenseData();
-            this.monthData = this.prepareMonthData(data);
+        catch(err) {
+            console.log(err);
         }
+        
     }
 
     async fetchMonthExpenseData() {
@@ -54,5 +63,11 @@ export default class NotAdminExpenseComponent extends LightningElement {
         return monthDataTemplate.map((el, index) => {
             return {...el, ...tempData[index]};
         });
+    }
+
+    getYearData() {
+        let nowDate = new Date();
+        let year = nowDate.getFullYear();
+        return Array.from({length: 4}, (_,i) => 1+year-(4-i));
     }
 }
