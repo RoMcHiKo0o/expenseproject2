@@ -12,3 +12,7 @@
 .selected {
     background-color: lightblue;
 }
+
+.badge {
+    background-color: lightgray;
+}

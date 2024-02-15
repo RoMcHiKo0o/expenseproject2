@@ -1,16 +1,11 @@
 <template>
     <lightning-card>
-        <div class="wrapper">       
-        <lightning-button-group>
-            <lightning-button-stateful
-                selected={buttonStatefulState}
-                alternative-text="Like"
-                label-when-off="2023"
-                label-when-on="2023"
-                onclick={handleButtonStatefulClick}>2023
-            </lightning-button-stateful>
-            
-        </lightning-button-group>
+        <div class="wrapper">
+            <div class="inner">
+                <template for:each={buttons} for:item="btn" for:index="index">
+                    <button key={btn} class="slds-button slds-button_neutral button-element" data-id={index} onclick={handleButtonClick}>{btn}</button>
+                </template>
+            </div>
         </div>
     </lightning-card>
 </template>

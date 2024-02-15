@@ -1,11 +1,10 @@
-import { LightningElement,api } from 'lwc';
+import { LightningElement,api, track, wire } from 'lwc';
 
 export default class MonthComponent extends LightningElement {
 
     @api totalAmount=0;
     @api totalIncome=0;
-    _months;
-    rolluped = false;
+    @track _months;
 
     @api 
     get months() {
@@ -16,12 +15,15 @@ export default class MonthComponent extends LightningElement {
         this._months = value;
         this.calcRollup();
         console.log('setter');
-        // test changes
         
     }
 
     handleMonth(event) {
         let index = event.currentTarget.dataset.id;
+        console.log(this.template.querySelectorAll('.data-row'));
+        this.template.querySelectorAll('.data-row').forEach(el => el.classList.remove('selected'))
+        this.template.querySelectorAll('.data-row')[index].classList.add('selected');
+        // event.currentTarget[index].classList.add('selected');
         console.log(index);
 
     }

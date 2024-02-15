@@ -16,7 +16,7 @@
         </thead>
         <tbody>
             <template for:each={months} for:item="month" for:index="index">
-                <tr key={month.name} data-id={index} onclick={handleMonth}>
+                <tr class="data-row" key={month.name} data-id={index} onclick={handleMonth}>
                     <th data-label="Month" scope="row">
                         <div class="" title="Month">
                             {month.name}
@@ -24,12 +24,12 @@
                     </th>
                     <td data-label="Amount">
                         <div class="" title="Amount">
-                            <lightning-badge label={month.amount}></lightning-badge>
+                            <lightning-badge class="badge" label={month.amount}></lightning-badge>
                         </div>
                     </td>
                     <td data-label="Income">
                         <div title="Income">
-                            <lightning-badge label={month.income}></lightning-badge>
+                            <lightning-badge class="badge" label={month.income}></lightning-badge>
                         </div>
                     </td>
                 </tr>
