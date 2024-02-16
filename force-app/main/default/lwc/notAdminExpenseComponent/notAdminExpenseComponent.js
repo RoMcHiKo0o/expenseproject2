@@ -27,8 +27,10 @@ export default class NotAdminExpenseComponent extends LightningElement {
     monthData=[];
 
     yearData=[];
-
-    balance='no info';
+    balance
+    get() {
+        return "$123"+this.balance;
+    };
 
     connectedCallback() {
         this.init();

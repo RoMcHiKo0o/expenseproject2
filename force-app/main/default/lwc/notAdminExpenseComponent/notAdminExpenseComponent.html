@@ -1,8 +1,30 @@
 <!-- sldsValidatorIgnore -->
 <template>
+    <div class="slds-grid slds-p-around_small slds-theme_shade" style="border: 1px solid black;">
+        <div class="slds-col slds-size_1-of-4 slds-float_left">
 
-    <article class="slds-card">
-        <div class="slds-card__header slds-grid">
+            <span class="slds-text-heading_medium">Expenses {office}</span>
+        </div>
+
+        <div class="slds-col slds-size_2-of-4 slds-text-align_center">
+            <span class="slds-text-heading_medium">Balance: <b>${balance}</b></span>    
+        </div>
+
+        <div class="slds-col slds-size_1-of-4 slds-float_right">
+            <lightning-button class="slds-m-right_xxx-small" variant="neutral" icon-name="utility:arrowdown" label="Income" onclick={handleClick}></lightning-button>
+            <lightning-button class="slds-m-left_xxx-small" variant="neutral" label="New Expense" onclick={handleClick}></lightning-button>   
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="leftColumn">
+            <c-month-component months={monthData}></c-month-component>
+            <c-year-component button-labels={yearData} onyearchange={changeYear}></c-year-component>
+        </div>
+        <div class="expenseComponent"></div>
+    </div>
+    <!-- <article class="slds-card">
+        <div class="slds-card__header slds-grid header-wrapper">
             <header class="slds-media slds-media_center slds-has-flexi-truncate">
               <div class="slds-media__body slds-grid">
                 <p class="slds-card__header-medium slds-col" style="font-size: 1.5rem;">
@@ -11,7 +33,7 @@
                 </p>
 
                 <p class="slds-card__header-medium slds-col" style="font-size: 1.5rem;">
-                    <span>Balance: <b>{balance}</b></span>    
+                    <span>Balance: <b>${balance}</b></span>    
                 </p>
                 
               </div>
@@ -33,7 +55,7 @@
             </div>
 
         </div>
-    </article>
+    </article> -->
     <!-- <lightning-card>
         <div>
             <div class="header" slot="title">

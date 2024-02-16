@@ -1,6 +1,6 @@
 <template>
-    <lightning-card>
+    <div style="background-color: white;">
         <c-admin-expense-component lwc:if={employee.isAdmin} name={employee.employeeName}></c-admin-expense-component>
         <c-not-admin-expense-component lwc:else name={employee.employeeName} office={employee.office}></c-not-admin-expense-component>
-    </lightning-card>
+    </div>
 </template>
