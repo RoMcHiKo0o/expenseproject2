@@ -28,6 +28,8 @@ export default class NotAdminExpenseComponent extends LightningElement {
 
     yearData=[];
 
+    balance='no info';
+
     connectedCallback() {
         this.init();
     }
@@ -38,8 +40,9 @@ export default class NotAdminExpenseComponent extends LightningElement {
                 console.log("no name:" + this.name);
             }
             else {
-                let data = await this.fetchMonthExpenseData();
-                this.monthData = this.prepareMonthData(data);
+                // let data = await this.fetchMonthExpenseData();
+                // this.monthData = this.prepareMonthData(data);
+                this.monthData = monthDataTemplate;
                 this.yearData = this.getYearData();
             }
         }
@@ -51,7 +54,15 @@ export default class NotAdminExpenseComponent extends LightningElement {
 
     async fetchMonthExpenseData() {
         try {
-            return await getMonthlyExpensesByEmail({email: this.name});
+            return await getMonthlyExpensesByEmail({'email': this.name});
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async fetchMonthExpenseDataByYear(year) {
+        try {
+            return await getMonthlyExpensesByEmailAndYear({'email': this.name, 'year': year});
         } catch (error) {
             console.log(error);
         }
@@ -68,6 +79,18 @@ export default class NotAdminExpenseComponent extends LightningElement {
     getYearData() {
         let nowDate = new Date();
         let year = nowDate.getFullYear();
-        return Array.from({length: 4}, (_,i) => 1+year-(4-i));
+        const lastYearsNumber=4;
+        return Array.from({length: lastYearsNumber}, (_,i) => 1+year-(lastYearsNumber-i));
+    }
+
+    changeYear(event) {
+        console.log('changing year');
+        console.log(event.detail);
+        this.changeMonthData(event.detail);
+    }
+
+    async changeMonthData(year) {
+        let data = await this.fetchMonthExpenseDataByYear(year);
+        this.monthData = this.prepareMonthData(data);
     }
 }

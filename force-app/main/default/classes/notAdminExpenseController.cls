@@ -1,6 +1,6 @@
 public with sharing class notAdminExpenseController {
 
-    @AuraEnabled(cacheable=false)
+    @AuraEnabled(cacheable=true)
     public static List<monthlyExpenseData> getMonthlyExpensesByEmailAndYear(String email, Integer year) {
         List<monthlyExpenseData> monthlyExpenseList = new List<monthlyExpenseData>();
 
@@ -10,7 +10,7 @@ public with sharing class notAdminExpenseController {
         return monthlyExpenseList;
     }  
 
-    @AuraEnabled(cacheable=false)
+    @AuraEnabled(cacheable=true)
     public static List<monthlyExpenseData> getMonthlyExpensesByEmail(String email) {
         Integer lastYear = Date.today().year();
         System.debug(lastYear);

@@ -9,6 +9,10 @@
     caret-color: transparent;
 }
 
+.data-row {
+    height: 35px;
+}
+
 .selected {
     background-color: lightblue;
 }

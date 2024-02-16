@@ -1,5 +1,6 @@
 <template>
-    <table class="slds-table slds-table_cell-buffer"
+
+    <table class="slds-table slds-table_cell-buffer slds-border_right"
         aria-label=" Example headless table of Opportunities with no borders ">
         <thead class="">
             <tr class="slds-line-height_reset">
@@ -24,7 +25,7 @@
                     </th>
                     <td data-label="Amount">
                         <div class="" title="Amount">
-                            <lightning-badge class="badge" label={month.amount}></lightning-badge>
+                            <lightning-badge lwc:if={month.amount} class="badge" label={month.amount}></lightning-badge>
 
                         </div>
                     </td>

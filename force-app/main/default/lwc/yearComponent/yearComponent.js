@@ -11,10 +11,7 @@ export default class YearComponent extends LightningElement {
     rendered = false;
 
     renderedCallback() {
-        // if (this.counter--) {
-        //     this.selectStartvalue();
-        // }        
-        console.log(this.buttonLabels);
+
         if (!this.rendered && Array.isArray(this.buttonLabels)) {
 
             // this.selectStartvalue();
@@ -24,23 +21,22 @@ export default class YearComponent extends LightningElement {
 
     selectStartvalue() {
         this.selected = this.buttonLabels.length-1;
-        console.log(this.selected);
-        console.log(this.template.querySelectorAll('.button-element')[this.selected]);
         this.selectButton(this.template.querySelectorAll('.button-element')[this.selected]);
     }
     
 
     selectButton(b) {
-        b.classList.add('slds-button_brand');
+        b?.classList.add('slds-button_brand');
     }
 
     deselectButton(b) {
-        b.classList.remove('slds-button_brand');
+        b?.classList.remove('slds-button_brand');
     }
 
     handleButtonClick(event) {
-        this.selected = console.log(event.target.dataset.id);
+        this.selected = event.target.dataset.id;
         let value = this.buttonLabels[this.selected];
+        this.dispatchEvent(new CustomEvent('yearchange', {detail: value, bubbles:true}));
         this.selectButton(event.target);
         
     }

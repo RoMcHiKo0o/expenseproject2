@@ -11,6 +11,7 @@ public with sharing class LoginEmployeeClass {
             result.put('status', true);
             result.put('employeeName', employeeList.get(0).Email);
             result.put('office', employeeList.get(0).Office__c);
+            System.debug(employeeList.get(0).Office__c);
             result.put('isAdmin', employeeList.get(0).Admin__c);
         }
         
