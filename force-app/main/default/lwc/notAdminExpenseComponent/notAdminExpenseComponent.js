@@ -24,6 +24,10 @@ export default class NotAdminExpenseComponent extends LightningElement {
 
     @api office='';
 
+    selectedYear;
+
+    selectedMonth;
+
     monthData=[];
 
     yearData=[];
@@ -85,14 +89,30 @@ export default class NotAdminExpenseComponent extends LightningElement {
         return Array.from({length: lastYearsNumber}, (_,i) => 1+year-(lastYearsNumber-i));
     }
 
-    changeYear(event) {
+    handleChangeYear(event) {
         console.log('changing year');
         console.log(event.detail);
+        this.selectedYear = event.detail;
         this.changeMonthData(event.detail);
     }
 
     async changeMonthData(year) {
         let data = await this.fetchMonthExpenseDataByYear(year);
         this.monthData = this.prepareMonthData(data);
+    }
+
+    handleChangeMonth(event) {
+        this.selectedMonth = event.detail;
+
+        this.fetchExpenseDataByYearAndMonth(this.selectedYear, this.selectedMonth);
+    }
+
+    async fetchExpenseDataByYearAndMonth(year, month) {
+        temp = await getExpenseByYearAndMonth({email: this.email, year: year, month: month});
+        this.expenseData = this.prepareExpenseData(JSON.parse(JSON.stringify(temp)));
+    }
+
+    prepareExpenseData(data) {
+
     }
 }

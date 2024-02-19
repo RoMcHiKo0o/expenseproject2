@@ -1,6 +1,6 @@
 <!-- sldsValidatorIgnore -->
 <template>
-    <div class="slds-grid slds-p-around_small slds-theme_shade" style="border: 1px solid black;">
+    <div class="slds-grid slds-p-around_small slds-theme_shade slds-clearfix" style="border: 1px solid black;">
         <div class="slds-col slds-size_1-of-4 slds-float_left">
 
             <span class="slds-text-heading_medium">Expenses {office}</span>
@@ -11,15 +11,15 @@
         </div>
 
         <div class="slds-col slds-size_1-of-4 slds-float_right">
-            <lightning-button class="slds-m-right_xxx-small" variant="neutral" icon-name="utility:arrowdown" label="Income" onclick={handleClick}></lightning-button>
-            <lightning-button class="slds-m-left_xxx-small" variant="neutral" label="New Expense" onclick={handleClick}></lightning-button>   
+            <lightning-button class="slds-m-left_xxx-small slds-float_right" variant="neutral" label="New Expense" onclick={handleClick}></lightning-button>   
+            <lightning-button class="slds-m-right_xxx-small slds-float_right" variant="neutral" icon-name="utility:arrowdown" label="Income" onclick={handleClick}></lightning-button>
         </div>
     </div>
 
-    <div class="wrapper">
+    <div class="wrapper slds-m-top_small">
         <div class="leftColumn">
-            <c-month-component months={monthData}></c-month-component>
-            <c-year-component button-labels={yearData} onyearchange={changeYear}></c-year-component>
+            <c-month-component months={monthData} onselectmonth={handleChangeMonth}></c-month-component>
+            <c-year-component button-labels={yearData} onyearchange={handleChangeYear}></c-year-component>
         </div>
         <div class="expenseComponent"></div>
     </div>

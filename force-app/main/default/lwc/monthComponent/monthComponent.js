@@ -24,6 +24,11 @@ export default class MonthComponent extends LightningElement {
     }
 
     selectMonth(index) {
+        this.changeMonthColor(index);
+        this.dispatchEvent(new CustomEvent('selectmonth', {detail: index, bubbles: true}))
+    }
+
+    changeMonthColor(index) {
         this.template.querySelectorAll('.data-row').forEach(el => el.classList.remove('selected'))
         this.template.querySelectorAll('.data-row')[index].classList.add('selected');
     }

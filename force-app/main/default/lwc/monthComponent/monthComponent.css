@@ -1,13 +1,16 @@
 .totalrow {
     font-weight: bold;
     color: black;
-    text-align: center;
     caret-color: transparent;
 }
 
 .data-row {
     height: 35px;
 }
+
+/* .cell {
+    border: 1px solid blue;
+} */
 
 .selected {
     background-color: lightblue;
