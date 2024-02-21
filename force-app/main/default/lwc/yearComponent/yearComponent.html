@@ -5,7 +5,7 @@
             <h2 class="slds-m-left_small slds-text-heading_medium">Years</h2>
             <div class="inner">
                 <template for:each={buttonLabels} for:item="btn" for:index="index">
-                    <button key={btn} class="slds-button slds-m-around_none button-element slds-button_neutral" data-id={index} onblur={handleBlur} onclick={handleButtonClick}>{btn}</button>
+                    <button key={btn} class="slds-button slds-m-around_none slds-button_neutral button-element" data-id={index} onblur={handleBlur} onclick={handleButtonClick}>{btn}</button>
                 </template>
             </div>
         </div>

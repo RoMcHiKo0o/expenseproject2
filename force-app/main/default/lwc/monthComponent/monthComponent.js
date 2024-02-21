@@ -6,6 +6,8 @@ export default class MonthComponent extends LightningElement {
     totalIncome;
     @track _months;
 
+    rendered=false;
+
     @api 
     get months() {
         return this._months;
@@ -17,6 +19,14 @@ export default class MonthComponent extends LightningElement {
         
     }
 
+    renderedCallback() {
+        if(!this.rendered && this.template.querySelectorAll('.data-row')) {
+            // let m = new Date();
+            // this.selectMonth(m.getMonth());
+            this.rendered = true;
+        }
+    }
+
     handleMonth(event) {
         let index = event.currentTarget.dataset.id;
         this.selectMonth(index);
@@ -25,7 +35,8 @@ export default class MonthComponent extends LightningElement {
 
     selectMonth(index) {
         this.changeMonthColor(index);
-        this.dispatchEvent(new CustomEvent('selectmonth', {detail: index, bubbles: true}))
+        const event = new CustomEvent('selectmonth', {detail: parseInt(index)+1, bubbles: true});
+        this.dispatchEvent(event);
     }
 
     changeMonthColor(index) {

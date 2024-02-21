@@ -1,6 +1,6 @@
 <template>
     <div style="background-color: white;">
-        <c-admin-expense-component lwc:if={employee.isAdmin} name={employee.employeeName}></c-admin-expense-component>
-        <c-not-admin-expense-component lwc:else name={employee.employeeName} office={employee.office}></c-not-admin-expense-component>
+        <c-admin-expense-component lwc:if={employee.isAdmin} email={employee.employeeName}></c-admin-expense-component>
+        <c-not-admin-expense-component lwc:else email={employee.employeeName} office={employee.office}></c-not-admin-expense-component>
     </div>
 </template>

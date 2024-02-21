@@ -11,7 +11,7 @@
         </div>
 
         <div class="slds-col slds-size_1-of-4 slds-float_right">
-            <lightning-button class="slds-m-left_xxx-small slds-float_right" variant="neutral" label="New Expense" onclick={handleClick}></lightning-button>   
+            <lightning-button class="slds-m-left_xxx-small slds-float_right" variant="neutral" label="New Expense" onclick={handleNewExpense}></lightning-button>   
             <lightning-button class="slds-m-right_xxx-small slds-float_right" variant="neutral" icon-name="utility:arrowdown" label="Income" onclick={handleClick}></lightning-button>
         </div>
     </div>
@@ -21,7 +21,9 @@
             <c-month-component months={monthData} onselectmonth={handleChangeMonth}></c-month-component>
             <c-year-component button-labels={yearData} onyearchange={handleChangeYear}></c-year-component>
         </div>
-        <div class="expenseComponent"></div>
+        <div class="expenseComponent">
+            <c-expenses-table-component lwc:ref='mainExpenseComp'></c-expenses-table-component>
+        </div>
     </div>
     <!-- <article class="slds-card">
         <div class="slds-card__header slds-grid header-wrapper">

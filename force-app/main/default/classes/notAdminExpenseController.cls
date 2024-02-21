@@ -15,7 +15,23 @@ public with sharing class notAdminExpenseController {
         Integer lastYear = Date.today().year();
         System.debug(lastYear);
         return notAdminExpenseController.getMonthlyExpensesByEmailAndYear(email, lastYear);
-    }   
+    }  
+    
+    @AuraEnabled(cacheable=true)
+    public static List<ExpenseCard__c> getExpenseData(String email, Integer year, Integer monthNumber){
+        List<ExpenseCard__c> res = new List<ExpenseCard__c>();
+        res = [select             
+                Description__c,
+                Amount__c,
+                CardDate__c
+                from ExpenseCard__c
+                where CardKeeper__r.Email=:email and
+                CALENDAR_MONTH(CardDate__c)=:monthNumber and
+                CALENDAR_YEAR(CardDate__c)=:year
+        ];
+        System.debug(res);
+        return res;
+    }
 
     public class monthlyExpenseData {
         @AuraEnabled public Decimal amount;
