@@ -1,13 +1,11 @@
 <!-- sldsValidatorIgnore -->
 <template>
-    <lightning-card>
-        <div class="wrapper">
-            <h2 class="slds-m-left_small slds-text-heading_medium">Years</h2>
-            <div class="inner">
-                <template for:each={buttonLabels} for:item="btn" for:index="index">
-                    <button key={btn} class="slds-button slds-m-around_none slds-button_neutral button-element" data-id={index} onblur={handleBlur} onclick={handleButtonClick}>{btn}</button>
-                </template>
-            </div>
+    <div class="wrapper slds-theme_default slds-p-around_small">
+        <h2 class="slds-m-left_small slds-text-heading_medium slds-text-align_center">Years</h2>
+        <div class="inner" lwc:ref="buttonsContainer">
+            <template for:each={buttonLabels} for:item="btn" for:index="index">
+                <button key={btn} class="slds-button slds-m-around_none slds-button_neutral button-element" data-id={index} onclick={handleButtonClick}>{btn}</button>
+            </template>
         </div>
-    </lightning-card>
+    </div>
 </template>

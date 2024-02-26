@@ -4,9 +4,10 @@ public with sharing class notAdminExpenseController {
     public static List<monthlyExpenseData> getMonthlyExpensesByEmailAndYear(String email, Integer year) {
         List<monthlyExpenseData> monthlyExpenseList = new List<monthlyExpenseData>();
 
-        for (monthlyExpense__c me: [select Reminder__c, SpentAmount__c, MonthDate__c from monthlyExpense__c where CALENDAR_YEAR(MonthDate__c)=:year]) {
+        for (monthlyExpense__c me: [select Reminder__c, SpentAmount__c, MonthDate__c from monthlyExpense__c where CALENDAR_YEAR(MonthDate__c)=:year and Keeper__r.Email=:email]) {
             monthlyExpenseList.add(new monthlyExpenseData(me.SpentAmount__c, me.Reminder__c, me.MonthDate__c.month()));
         }
+        System.debug(monthlyExpenseList);
         return monthlyExpenseList;
     }  
 

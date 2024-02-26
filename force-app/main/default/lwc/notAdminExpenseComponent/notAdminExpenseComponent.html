@@ -18,11 +18,10 @@
 
     <div class="wrapper slds-m-top_small">
         <div class="leftColumn">
-            <c-month-component months={monthData} onselectmonth={handleChangeMonth}></c-month-component>
-            <c-year-component button-labels={yearData} onyearchange={handleChangeYear}></c-year-component>
+            <c-choose-date-component date-change-handler={dateChangeHandler} email={employee.email}></c-choose-date-component>
         </div>
         <div class="expenseComponent">
-            <c-expenses-table-component lwc:ref='mainExpenseComp'></c-expenses-table-component>
+            <!-- <c-expenses-table-component lwc:ref='mainExpenseComp'></c-expenses-table-component> -->
         </div>
     </div>
     <!-- <article class="slds-card">

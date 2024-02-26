@@ -1,36 +1,41 @@
-import { LightningElement,api } from 'lwc';
+import { LightningElement, api } from 'lwc';
 
 export default class YearComponent extends LightningElement {
 
-    @api buttonLabels;
+    buttonLabels = this.generateButtonLabels();
+    buttons;
 
     @api selected;
 
     @api email;
 
+    @api yearChangeHandler;
+
     rendered = false;
+
+    generateButtonLabels() {
+        const lastYearsNumber = 4;
+        return Array.from({ length: lastYearsNumber }, (_, i) => 1 + (new Date().getFullYear()) - (lastYearsNumber - i));
+    }
 
     renderedCallback() {
 
-        if (!this.rendered && Array.isArray(this.buttonLabels) && this.template.querySelectorAll('.button-element')) {
-
+        if (!this.rendered && Array.isArray(this.buttonLabels)) {
+            this.buttons = this.refs.buttonsContainer.children;
             this.selectStartvalue();
             this.rendered = true;
         }
     }
 
     selectStartvalue() {
-        this.selected = this.buttonLabels.length-1;
-        this.selectButton(this.template.querySelectorAll('.button-element')[this.selected], this.buttonLabels[this.selected]);
-
-        // console.log(this.template.querySelectorAll('.button-element'));
+        this.selected = this.buttonLabels.length - 1;
+        this.selectButton(this.buttons[this.selected], this.buttonLabels[this.selected]);
     }
-    
+
 
     selectButton(b, value) {
         this.selectButtonEffect(b);
-        console.log(value);
-        this.dispatchEvent(new CustomEvent('yearchange', {detail: value, bubbles:true}));
+        this.yearChangeHandler(value);
     }
 
     selectButtonEffect(b) {
@@ -42,16 +47,9 @@ export default class YearComponent extends LightningElement {
     }
 
     handleButtonClick(event) {
-        this.template.querySelectorAll('.button-element').forEach(el => this.deselectButtonEffect(el));
+        this.deselectButtonEffect(this.buttons[this.selected])
         this.selected = event.target.dataset.id;
         let value = this.buttonLabels[this.selected];
-        this.selectButton(event.target, value);
-        
+        this.selectButton(this.buttons[this.selected], value);
     }
-
-//     handleBlur(event) {
-//         event.preventDefault();
-//         event.stopPropogation();
-//         this.deselectButtonEffect(event.target);
-//     }
 }

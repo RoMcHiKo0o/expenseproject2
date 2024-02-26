@@ -3,4 +3,6 @@
 //     query text and running the command:
 //     SFDX: Execute SOQL Query with Currently Selected Text
 
-SELECT Id, Name FROM Account
+//SELECT Id, Name FROM Account
+
+SELECT Balance__c, SpentAmount__c, Reminder__c from MonthlyExpense__c where Keeper__r.Email='john@star.com'

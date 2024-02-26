@@ -1,5 +1,5 @@
 <template>
-
+    <div>
     <table class="slds-table slds-table_cell-buffer slds-border_right"
         aria-label=" Example headless table of Opportunities with no borders ">
         <tr class="slds-line-height_reset slds-theme_default slds-text-heading_small">
@@ -14,7 +14,7 @@
             </th>
         </tr>
         <tbody>
-            <template for:each={months} for:item="month" for:index="index">
+            <template for:each={monthTableData} for:item="month" for:index="index">
                 <tr class="data-row" key={month.name} data-id={index} onclick={handleMonth}>
                     <th data-label="Month" scope="row" class="cell">
                         <div title="Month">
@@ -33,7 +33,7 @@
                     </td>
                 </tr>
             </template>
-            <tr class='no-hover' style="background-color: lightgray;">
+            <tr class='no-hover slds-theme_shade'>
                 <th class='totalrow slds-text-align_center'>
                     Total
                 </th>
@@ -46,4 +46,5 @@
             </tr>
         </tbody>
     </table>
+</div>
 </template>
