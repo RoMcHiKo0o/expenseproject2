@@ -1,32 +1,24 @@
 import { LightningElement, api, wire } from 'lwc';
 
-import getMonthlyExpensesByEmail from '@salesforce/apex/notAdminExpenseController.getMonthlyExpensesByEmail';
-import getMonthlyExpensesByEmailAndYear from '@salesforce/apex/notAdminExpenseController.getMonthlyExpensesByEmailAndYear';
-import getExpenseData from '@salesforce/apex/notAdminExpenseController.getExpenseData';
-
-const monthDataTemplate = [
-    { name: 'January' },
-    { name: 'February' },
-    { name: 'March' },
-    { name: 'April' },
-    { name: 'May' },
-    { name: 'June' },
-    { name: 'July' },
-    { name: 'August' },
-    { name: 'September' },
-    { name: 'October' },
-    { name: 'November' },
-    { name: 'December' }
-];
-
 export default class NotAdminExpenseComponent extends LightningElement {
 
 
     @api employee;
     balance;
 
+
+    newBalanceHandler(event) {
+        console.log('new balance catched');
+        this.balance = event.detail;
+    }
+
     dateChangeHandler = (date) => {
-        console.log('not admin', date);
+        try {
+            this.refs.mainExpenseComp.loadExpensesMethod(date, this.email);
+        } catch (error) {
+            console.log('error in dateChangeHandler: ', error);
+        }
+     
     }
 
     // @api email;

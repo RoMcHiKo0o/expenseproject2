@@ -7,8 +7,6 @@ export default class YearComponent extends LightningElement {
 
     @api selected;
 
-    @api email;
-
     @api yearChangeHandler;
 
     rendered = false;

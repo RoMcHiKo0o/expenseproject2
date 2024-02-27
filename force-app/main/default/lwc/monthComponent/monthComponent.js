@@ -46,6 +46,19 @@ export default class MonthComponent extends LightningElement {
     set tempdata(value) {
         this.monthTableData = this.prepareData(value);
         this.calcRollup();
+        this.dispatchNewBalance();
+        this.selectMonth(this.selected);
+    }
+
+
+    dispatchNewBalance() {
+        try {
+            const event = new CustomEvent('newbalance', {detail: this.totalIncome-this.totalAmount, bubbles:true, composed: true});
+            this.dispatchEvent(event);
+        } catch (error) {
+            console.log('error dispathing event: ', error);   
+        }
+        
     }
 
 
@@ -109,29 +122,6 @@ export default class MonthComponent extends LightningElement {
 
         this.totalIncome = Math.round(this.totalIncome * 100) / 100;
     }
-
-    // @track _months;
-
-    // rendered=false;
-
-    // @api 
-    // get months() {
-    //     return this._months;
-    // }
-
-    // set months(value) {
-    //     this._months = value;
-    //     this.calcRollup();
-
-    // }
-
-    // renderedCallback() {
-    //     if(!this.rendered && this.template.querySelectorAll('.data-row')) {
-    //         // let m = new Date();
-    //         // this.selectMonth(m.getMonth());
-    //         this.rendered = true;
-    //     }
-    // }
 
     handleMonth(event) {
         let index = event.currentTarget.dataset.id;
