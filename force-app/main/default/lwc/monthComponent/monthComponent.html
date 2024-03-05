@@ -1,7 +1,6 @@
 <template>
     <div>
-    <table class="slds-table slds-table_cell-buffer slds-border_right"
-        aria-label=" Example headless table of Opportunities with no borders ">
+    <table class="slds-table slds-table_cell-buffer slds-border_right slds-table-no-row-hover">
         <tr class="slds-line-height_reset slds-theme_default slds-text-heading_small">
             <th class="slds-text-align_center" scope="col">
                 <div class="slds-truncate" title="Month">Months</div>
@@ -15,7 +14,7 @@
         </tr>
         <tbody>
             <template for:each={monthTableData} for:item="month" for:index="index">
-                <tr class="data-row" key={month.name} data-id={index} onclick={handleMonth}>
+                <tr class="data-row slds-no-hover" key={month.name} data-id={index} onclick={handleMonth}>
                     <th data-label="Month" scope="row" class="cell">
                         <div title="Month">
                             {month.name}

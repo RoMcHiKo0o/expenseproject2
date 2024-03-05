@@ -34,6 +34,42 @@ public with sharing class notAdminExpenseController {
         return res;
     }
 
+    // @AuraEnabled(cacheable=true)
+    // public static List<ExpenseCard__c> getExpensesDaysMyEmailAndDate(String email, Date date){
+    //     try {
+    //         List<ExpenseCard__c> res = new List<ExpenseCard__c>();
+    //         res = [select             
+    //                 Description__c,
+    //                 Amount__c,
+    //                 CardDate__c
+    //                 from ExpenseCard__c
+    //                 where CardKeeper__r.Email=:email and
+    //                 CardDate__c=:expenseDate
+    //         ];
+    //         System.debug(res);
+    //         return res;
+    //     }
+    //     catch(Exception e) {
+    //         System.debug(e);
+    //         return new List<ExpenseCard__c>();
+    //     }
+    // }
+
+    @AuraEnabled(cacheable=true)
+    public static void deleteExpenseById(String id){
+        try {
+            System.debug(Limits.getLimitDMLStatements());
+            System.debug(Limits.getLimitQueries());
+            List<ExpenseCard__c> deleteList = [select Id from ExpenseCard__c where Id=:id];
+            System.debug(deleteList);
+            delete deleteList;
+        }
+        catch(Exception e) {
+            System.debug(e);
+        }
+        
+    }
+
     public class monthlyExpenseData {
         @AuraEnabled public Decimal amount;
         @AuraEnabled public Decimal income;

@@ -1,3 +1,15 @@
 <template>
-    {expensesData}
+    <div class="slds-theme_default">
+        <div if:true={noRecords}>No expenses this month</div>
+        <lightning-accordion if:false={noRecords} allow-multiple-sections-open="true" class="slds-border_bottom">
+            <template for:each={expensesData} for:item="expenseDay">
+                <lightning-accordion-section name="A" label={expenseDay.date} key={expenseDay.date}>
+                    <!-- <template for:each={expenseDay.dataList} for:item="expense" for:index="index">
+                        {expense.number}    {expense.description}   {expense.amount}
+                    </template> -->
+                    <c-one-day-expense-component expenses={expenseDay.dataList}></c-one-day-expense-component>
+                </lightning-accordion-section>
+            </template>
+        </lightning-accordion>
+    </div>
 </template>

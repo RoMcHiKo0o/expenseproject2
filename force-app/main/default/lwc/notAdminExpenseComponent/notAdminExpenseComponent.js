@@ -14,7 +14,7 @@ export default class NotAdminExpenseComponent extends LightningElement {
 
     dateChangeHandler = (date) => {
         try {
-            this.refs.mainExpenseComp.loadExpensesMethod(date, this.email);
+            this.refs.mainExpenseComp?.loadExpensesMethod(date, this.employee.email);
         } catch (error) {
             console.log('error in dateChangeHandler: ', error);
         }

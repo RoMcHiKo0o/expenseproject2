@@ -22,6 +22,10 @@
     /* border: 1px solid red; */
 }
 
+.expenseComponent {
+    width: 70%;
+}
+
 
 /* .header {
     display: flex;

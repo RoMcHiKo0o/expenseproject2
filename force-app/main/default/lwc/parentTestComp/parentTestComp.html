@@ -1,7 +1,21 @@
 <template>
-    <div class="slds-theme_default">
-        <c-child-test-comp ch-data={testData}></c-child-test-comp>
-        some random text
+    <div class="slds-theme_default slds-m-around_small">
+        <lightning-accordion allow-multiple-sections-open="true">
+            <template for:each={data} for:item="expenseDay">
+                <lightning-accordion-section name="A" label={expenseDay.date} key={expenseDay.date}>
+                    <table>
+                        <tbody>
+                    <template for:each={expenseDay.dataList} for:item="expense" for:index="index">
+                        <tr key={expense.id}>{expense.number}    {expense.description}   {expense.amount}</tr>                    
+                    </template>
+                </tbody>
+                </table>
+                </lightning-accordion-section>
+            </template>
+        </lightning-accordion>
     </div>
+
+
+
     
 </template>

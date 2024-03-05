@@ -1,96 +1,87 @@
 import { LightningElement, api, wire, track } from 'lwc';
 
 import getExpenseData from '@salesforce/apex/notAdminExpenseController.getExpenseData';
+// import getMonthDates from '@salesforce/apex/notAdminExpenseController.getExpensesDaysMyEmailAndDate';
+import DESCRIPTION from '@salesforce/schema/ExpenseCard__c.Description__c';
+import AMOUNT from '@salesforce/schema/ExpenseCard__c.Amount__c';
 
 const expensesDataTemplate = [
     {
-        "Description__c": "protein bar",
-        "Amount__c": 1.89,
-        "CardDate__c": "2024-02-13",
-        "Id": "a01GA00002LhlAwYAJ"
+        "date": "2024-03-03",
+        "dataList": [
+            {
+                // "index": 1,
+                "description": "Exponenta",
+                "amount": "3.00",
+                "id": "a01GA00002MLtHhYAL"
+            },
+            {
+                // "index": 2,
+                "description": "цветы",
+                "amount": "60.00",
+                "id": "a01GA00002MLtI1YAL"
+            },
+            {
+                // "index": 3,
+                "description": "Gym",
+                "amount": "65.00",
+                "id": "a01GA00002MLtHcYAL"
+            },
+            {
+                // "index": 4,
+                "description": "metro",
+                "amount": "0.90",
+                "id": "a01GA00002MLtHOYA1"
+            }
+        ]
     },
     {
-        "Description__c": "curd",
-        "Amount__c": 5,
-        "CardDate__c": "2024-02-15",
-        "Id": "a01GA00002LhlAwYAJ"
-    },
-    {
-        "Description__c": "metro",
-        "Amount__c": 0.9,
-        "CardDate__c": "2024-02-16",
-        "Id": "a01GA00002LhlAwYAJ"
-    },
-    {
-        "Description__c": "party",
-        "Amount__c": 25,
-        "CardDate__c": "2024-02-16",
-        "Id": "a01GA00002LhlAwYAJ"
-    },
-    {
-        "Description__c": "gym",
-        "Amount__c": 65,
-        "CardDate__c": "2024-02-16",
-        "Id": "a01GA00002LhlAwYAJ"
-    },
-    {
-        "Description__c": "taxi",
-        "Amount__c": 16.7,
-        "CardDate__c": "2024-02-17",
-        "Id": "a01GA00002LhlAwYAJ"
+        "date": "2024-03-02",
+        "dataList": [
+            {
+                // "index": 1,
+                "description": "Продукты",
+                "amount": "10.00",
+                "id": "a01GA00002MLtHNYA1"
+            }
+        ]
     }
-]
+];
 
 export default class ExpensesTableComponent extends LightningElement {
     expensesData;
 
+    FIELDS = [DESCRIPTION, AMOUNT];
+    email;
+
+    set tempData(v) {
+        this.expensesData = this.prepareData(v);
+    }
+
+    get noRecords() {
+        return this.expensesData == [];
+
+    }
+
+    // connectedCallback() {
+    //     this.loadExpensesMethod(1,1);
+    // }
 
     @api
     loadExpensesMethod(date, email) {
-        console.log(expensesDataTemplate);
-        this.expensesData = JSON.stringify(expensesDataTemplate);
+        console.log(email);
+        // this.email = email;
+        console.log(email);
+        this.expensesData = expensesDataTemplate;
+
+
+        // getExpenseData({'email': email, 'year': date.year, 'monthNumber': date.month}).then(data => {
+        //     console.log(data);
+        //     this.tempData = JSON.parse(JSON.stringify(data));
+        // }).catch(err => {
+        //     console.log(err);
+        // })
     }
-
-
-    // @api monthData = [
-    //     {
-    //         "Description__c": "protein bar",
-    //         "Amount__c": 1.89,
-    //         "CardDate__c": "2024-02-13",
-    //         "Id": "a01GA00002LhlAwYAJ"
-    //     },
-    //     {
-    //         "Description__c": "curd",
-    //         "Amount__c": 5,
-    //         "CardDate__c": "2024-02-15",
-    //         "Id": "a01GA00002LhlAwYAJ"
-    //     },
-    //     {
-    //         "Description__c": "metro",
-    //         "Amount__c": 0.9,
-    //         "CardDate__c": "2024-02-16",
-    //         "Id": "a01GA00002LhlAwYAJ"
-    //     },
-    //     {
-    //         "Description__c": "party",
-    //         "Amount__c": 25,
-    //         "CardDate__c": "2024-02-16",
-    //         "Id": "a01GA00002LhlAwYAJ"
-    //     },
-    //     {
-    //         "Description__c": "gym",
-    //         "Amount__c": 65,
-    //         "CardDate__c": "2024-02-16",
-    //         "Id": "a01GA00002LhlAwYAJ"
-    //     },
-    //     {
-    //         "Description__c": "taxi",
-    //         "Amount__c": 16.7,
-    //         "CardDate__c": "2024-02-17",
-    //         "Id": "a01GA00002LhlAwYAJ"
-    //     }
-    // ];
-
 
     // expensesesWireResult;
     // email;
@@ -133,12 +124,21 @@ export default class ExpensesTableComponent extends LightningElement {
 
     // }
 
-    // prepareData(value) {
-    //     this.newData = {}
-    //     value.forEach((el) => {
-    //         let temp = value[el.CardDate__c] || [];
-    //         this.newData[el.CardDate__c] = [...temp, el];
-    //     })
-    // }
+    prepareData = (value) => {
+        let result = [];
+        let dateIndexMap = {};
+        value.forEach((el) => {
+            if (el.CardDate__c in dateIndexMap) {
+                let value = result[dateIndexMap[el.CardDate__c]];
+                value.dataList = [...value.dataList, { 'index': value.dataList.length + 1, "description": el.Description__c, "amount": Number.parseFloat(el.Amount__c).toFixed(2), "id": el.Id }]
+            }
+            else {
+                result.push({ 'date': el.CardDate__c, dataList: [{ 'index': 1, "description": el.Description__c, "amount": Number.parseFloat(el.Amount__c).toFixed(2), "id": el.Id }] });
+                dateIndexMap[el.CardDate__c] = result.length - 1;
+            }
+        })
+        console.log(result);
+        return result;
+    }
 
 }
