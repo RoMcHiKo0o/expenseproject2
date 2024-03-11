@@ -8,7 +8,7 @@ export default class NotAdminExpenseComponent extends LightningElement {
 
 
     newBalanceHandler(event) {
-        console.log('new balance catched');
+        console.log('new balance catched', event.detail);
         this.balance = event.detail;
     }
 
@@ -20,6 +20,20 @@ export default class NotAdminExpenseComponent extends LightningElement {
         }
      
     }
+
+    handleNewExpense() {
+        try {
+            this.refs.mainExpenseComp?.newExpenseHandler(this.employee.email);
+        } catch (error) {
+            console.log('error in handleNewExpense: ', error);
+        }
+    }
+
+    changesHandle = () => {
+        console.log('notAdmin changes: ', );
+        this.refs.dateComp?.refreshData();
+    }
+
 
     // @api email;
 

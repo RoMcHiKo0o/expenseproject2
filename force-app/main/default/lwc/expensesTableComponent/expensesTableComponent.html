@@ -7,9 +7,12 @@
                     <!-- <template for:each={expenseDay.dataList} for:item="expense" for:index="index">
                         {expense.number}    {expense.description}   {expense.amount}
                     </template> -->
-                    <c-one-day-expense-component expenses={expenseDay.dataList}></c-one-day-expense-component>
+                    <c-one-day-expense-component expenses={expenseDay.dataList} notify-about-changes={notifyAboutChanges}></c-one-day-expense-component>
                 </lightning-accordion-section>
             </template>
         </lightning-accordion>
+        <c-new-expense-modal-popup-component if:true={showModal} email={email} close-modal={closeModal} save-modal={saveModalHandle}>
+
+        </c-new-expense-modal-popup-component>
     </div>
 </template>

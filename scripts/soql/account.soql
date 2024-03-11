@@ -6,3 +6,5 @@
 //SELECT Id, Name FROM Account
 
 SELECT Balance__c, SpentAmount__c, Reminder__c from MonthlyExpense__c where Keeper__r.Email='john@star.com'
+
+SELECT Id, Description__c,Amount__c from ExpenseCard__c where Id='a01GA00002MMXzFYAX'

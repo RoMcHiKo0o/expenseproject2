@@ -2,22 +2,28 @@
     <table class="slds-table slds-table_cell-buffer slds-no-row-hover slds-table_bordered slds-border_left slds-border_right slds-table_edit">
         <thead>
             <tr class="slds-line-height_reset">
-                <th class="" scope="col">
-                    <div class="slds-truncate" title="Index"></div>
+                <th class="slds-p-horizontal_none" scope="col">
+                    <a class="slds-th__action" onclick={handleSort} data-column="index" style="user-select: none;">
+                        <!-- <span class="slds-truncate" title="Description">Description</span> -->
+                        
+                        <!-- <lightning-icon style="fill: blue" icon-name='utility:arrowdown' alternative-text='arrowdown' size="x_small" title='arrowdown'></lightning-icon> -->
+                    </a>
                 </th>
                 <!-- <th class="" onclick={handleSortClick} scope="col">
                     <div class="slds-truncate" title="Description">Description</div>
                 </th> -->
                 <th class="" scope="col">
-                    <a class="slds-th__action slds-text-link_reset slds-p-horizontal_small" role="button" onclick={handleSort} data-column="description">
-                        <span class="slds-truncate" title="Description">Description</span>
+                    <a class="slds-th__action slds-text-link_reset slds-p-horizontal_small" onclick={handleSort} data-column="description"  style="user-select: none;">
+                        <!-- <span class="slds-truncate" title="Description">Description</span> -->
+                        Description
                         <!-- <lightning-icon style="fill: blue" icon-name='utility:arrowdown' alternative-text='arrowdown' size="x_small" title='arrowdown'></lightning-icon> -->
                     </a>
                 </th>
                 <th class="" scope="col">
                     <!-- <div class="slds-truncate" title="Amount">Amount</div> -->
-                    <a class="slds-th__action slds-text-link_reset slds-p-horizontal_small" role="button" onclick={handleSort} data-column="amount">
-                        <span class="slds-truncate" title="Amount">Amount</span>
+                    <a class="slds-th__action slds-text-link_reset slds-p-horizontal_small" onclick={handleSort} data-column="amount" style="user-select: none;">
+                        <!-- <span class="slds-truncate" title="Amount">Amount</span> -->
+                        Amount
                         <!-- <lightning-icon style="fill: blue" icon-name='utility:arrowdown' alternative-text='arrowdown' size="x_small" title='arrowdown'></lightning-icon> -->
                     </a>
                 </th>
@@ -44,7 +50,7 @@
                     </td>
                     <td data-label="Action">
                         <div class="slds-truncate" title="Action">
-                            <div class="slds-button" data-id={exp.index} onclick={handleDeleteClick}>Delete</div>
+                            <div class="slds-button" data-id={exp.id} onclick={handleDeleteClick}>Delete</div>
                         </div>
                     </td>
                 </tr>

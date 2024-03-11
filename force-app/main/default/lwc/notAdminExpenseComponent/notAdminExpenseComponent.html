@@ -3,11 +3,13 @@
     <div class="slds-grid slds-p-around_small slds-theme_shade slds-clearfix" style="border: 1px solid black;">
         <div class="slds-col slds-size_1-of-4 slds-float_left">
 
-            <span class="slds-text-heading_medium">Expenses {office}</span>
+            <span class="slds-text-heading_medium">Expenses {employee.office}</span>
         </div>
 
         <div class="slds-col slds-size_2-of-4 slds-text-align_center">
-            <span class="slds-text-heading_medium">Balance: <b>${balance}</b></span>    
+            <span class="slds-text-heading_medium">Balance: <b><lightning-formatted-number value={balance} format-style="currency" 
+                currency-code="USD" currency-display-as="symbol">
+                </lightning-formatted-number></b></span>    
         </div>
 
         <div class="slds-col slds-size_1-of-4 slds-float_right">
@@ -18,10 +20,10 @@
 
     <div class="wrapper slds-m-top_small">
         <div class="leftColumn">
-            <c-choose-date-component date-change-handler={dateChangeHandler} email={employee.email} onnewbalance={newBalanceHandler}></c-choose-date-component>
+            <c-choose-date-component lwc:ref="dateComp" date-change-handler={dateChangeHandler} email={employee.email} onnewbalance={newBalanceHandler}></c-choose-date-component>
         </div>
         <div class="expenseComponent">
-            <c-expenses-table-component lwc:ref='mainExpenseComp'></c-expenses-table-component>
+            <c-expenses-table-component lwc:ref='mainExpenseComp' notify-about-changes={changesHandle}></c-expenses-table-component>
         </div>
     </div>
     <!-- <article class="slds-card">

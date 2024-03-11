@@ -11,7 +11,7 @@ public with sharing class notAdminExpenseController {
         return monthlyExpenseList;
     }  
 
-    @AuraEnabled(cacheable=true)
+    @AuraEnabled(cacheable=false)
     public static List<monthlyExpenseData> getMonthlyExpensesByEmail(String email) {
         Integer lastYear = Date.today().year();
         System.debug(lastYear);
@@ -55,17 +55,46 @@ public with sharing class notAdminExpenseController {
     //     }
     // }
 
-    @AuraEnabled(cacheable=true)
-    public static void deleteExpenseById(String id){
+    @AuraEnabled(cacheable=false)
+    public static dmlResult deleteExpenseById(String id){
         try {
             System.debug(Limits.getLimitDMLStatements());
             System.debug(Limits.getLimitQueries());
-            List<ExpenseCard__c> deleteList = [select Id from ExpenseCard__c where Id=:id];
-            System.debug(deleteList);
-            delete deleteList;
+            ExpenseCard__c exp = [select Id from ExpenseCard__c where Id=:id];
+            System.debug(exp);
+            Database.DeleteResult res = Database.delete(exp);
+            System.debug(res);
+                if (res.getErrors().size()==0) {
+                    return new dmlResult(res.isSuccess(), '');
+                }
+                else  {
+                    return new dmlResult(res.isSuccess(), res.getErrors().get(0).getMessage());
+                }
         }
         catch(Exception e) {
             System.debug(e);
+            return new dmlResult(false, e.getMessage());
+        }
+        
+    }
+
+    @AuraEnabled(cacheable=false)
+    public static dmlResult createExpense(String email, Decimal amount, String description, Date expDate){
+        try {
+            Contact cardKeeper = [select Id from Contact where Email=:email limit 1];
+            System.debug(cardKeeper);
+
+            ExpenseCard__c newCard = new ExpenseCard__c(CardKeeper__c = cardKeeper.Id,
+                                                        Amount__c=amount,
+                                                        Description__c=description,
+                                                        CardDate__c=expDate);
+            
+            Database.SaveResult res = Database.insert(newCard);
+            return new dmlResult(res.isSuccess(), res.getErrors().get(0).getMessage());
+        }
+        catch(Exception e) {
+            System.debug(e);
+            return new dmlResult(false, e.getMessage());
         }
         
     }
@@ -78,6 +107,15 @@ public with sharing class notAdminExpenseController {
             amount=a;
             income=r;
             month=m;
+        }
+    }   
+
+    public class dmlResult {
+        @AuraEnabled public Boolean success;
+        @AuraEnabled public String error;
+        public dmlResult(Boolean s, String ers) {
+            success=s;
+            error=ers;
         }
     }   
 }

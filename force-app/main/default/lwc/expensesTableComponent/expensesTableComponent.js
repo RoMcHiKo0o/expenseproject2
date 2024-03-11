@@ -5,6 +5,10 @@ import getExpenseData from '@salesforce/apex/notAdminExpenseController.getExpens
 import DESCRIPTION from '@salesforce/schema/ExpenseCard__c.Description__c';
 import AMOUNT from '@salesforce/schema/ExpenseCard__c.Amount__c';
 
+import createExpense from '@salesforce/apex/notAdminExpenseController.createExpense';
+
+import { RefreshEvent } from 'lightning/refresh';
+
 const expensesDataTemplate = [
     {
         "date": "2024-03-03",
@@ -54,6 +58,8 @@ export default class ExpensesTableComponent extends LightningElement {
     FIELDS = [DESCRIPTION, AMOUNT];
     email;
 
+    showModal = false;
+
     set tempData(v) {
         this.expensesData = this.prepareData(v);
     }
@@ -70,17 +76,66 @@ export default class ExpensesTableComponent extends LightningElement {
     @api
     loadExpensesMethod(date, email) {
         console.log(email);
-        // this.email = email;
+        this.email = email;
         console.log(email);
-        this.expensesData = expensesDataTemplate;
+        this.tempData = [];
+        // this.expensesData = expensesDataTemplate;
 
 
-        // getExpenseData({'email': email, 'year': date.year, 'monthNumber': date.month}).then(data => {
-        //     console.log(data);
-        //     this.tempData = JSON.parse(JSON.stringify(data));
-        // }).catch(err => {
-        //     console.log(err);
-        // })
+        getExpenseData({ 'email': email, 'year': date.year, 'monthNumber': date.month }).then(data => {
+            this.apexData = data;
+            console.log(data);
+            this.tempData = JSON.parse(JSON.stringify(data));
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    @api newExpenseHandler(email) {
+        this.showModal = true;
+    }
+
+    closeModal = () => {
+        try {
+            this.showModal = false;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    @api
+    notifyAboutChanges;
+
+    @api refreshData() {
+        
+        // this.loadExpensesMethod();
+        // this.dispatchEvent(new RefreshEvent());
+    }
+
+    saveModalHandle = (data) => {
+        console.log('started saving');
+        try {
+
+            // createExpense(data).then(res => {
+            //     if (res.success) {
+            //         console.log('ok!');
+
+                    this.notifyAboutChanges();
+            //         // showToastEvent
+            //         this.showModal = false;
+            //     }
+            //     else {
+            //         console.log(res.error);
+            //         // showToastEvent
+            //     }
+
+            // })
+            this.showModal = false;
+            
+        } catch (error) {
+            console.log(error);
+            // showToastEvent
+        }
     }
 
     // expensesesWireResult;

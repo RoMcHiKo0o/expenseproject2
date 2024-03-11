@@ -1,6 +1,8 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import getMonthlyExpensesData from '@salesforce/apex/notAdminExpenseController.getMonthlyExpensesByEmailAndYear';
 
+import { RefreshEvent } from 'lightning/refresh';
+
 const monthDataTemplate = [
     { name: 'January' },
     { name: 'February' },
@@ -25,6 +27,8 @@ export default class MonthComponent extends LightningElement {
     totalIncome;
     selected;
     rendered = false;
+
+    apexData;
 
     @api monthChangeHandler;
 
@@ -75,6 +79,7 @@ export default class MonthComponent extends LightningElement {
             'email': this.email,
             'year': year
         }).then(res => {
+            this.apexData = res;
             let data = JSON.parse(JSON.stringify(res));
             console.log(data);
             this.tempdata = data;
@@ -142,6 +147,12 @@ export default class MonthComponent extends LightningElement {
 
     deselectMonthEffect(el) {
         el?.classList.remove('selected');
+    }
+
+    @api refreshData(year) {
+        // this.tempdata;
+        // this.dispatchEvent(new RefreshEvent());
+        // this.loadMonthData(year);
     }
 
 }

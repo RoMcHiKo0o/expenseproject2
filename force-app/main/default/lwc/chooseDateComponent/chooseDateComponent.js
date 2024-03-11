@@ -31,4 +31,9 @@ export default class ChooseDateComponent extends LightningElement {
         }
         
     }
+
+    @api
+    refreshData() {
+        this.refs.monthComp.refreshData(this.currentDate.year);
+    }
 }
